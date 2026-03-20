@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta property="og:type" content="product"/>
 <meta property="og:title" content="AI Model Lab — Free Mini Guide: Build AI Girls & Earn"/>
-<meta property="og:description" content="Get the free step-by-step mini guide: create AI girl models for TikTok & Fanvue. Start today."/>
+<meta property="og:description" content="Step-by-step guide to creating AI girl models and earning online. Free access for beginners."/>
 <meta property="og:site_name" content="AI Model Lab"/>
 <meta property="og:image" content="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjYzMCI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI2MzAiIGZpbGw9IiMxYTAwMDUiLz48cmVjdCB4PSI2MDAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNjMwIiBmaWxsPSIjMGQwMDFhIi8+PHRleHQgeD0iMzAwIiB5PSIyODAiIGZvbnQtZmFtaWx5PSJHZW9yZ2lhLHNlcmlmIiBmb250LXNpemU9IjU0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmM2MzYyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QUkgTW9kZWwgTGFiPC90ZXh0Pjx0ZXh0IHg9IjMwMCIgeT0iMzYwIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZmlsbD0iI2ZmYTA4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RnJlZSBNaW5pIEd1aWRlPC90ZXh0Pjx0ZXh0IHg9IjkwMCIgeT0iMjgwIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSI1NCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNmZmQ0YTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNleHlGYW5zPC90ZXh0PjwvcG5nPg=="/>
 <meta property="og:image:width" content="1200"/>
@@ -20,8 +20,8 @@
 body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100vh;overflow:hidden}
 
 .particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:5;overflow:hidden}
-.particle{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0}
-@keyframes float{0%{transform:translateY(100vh);opacity:0}10%{opacity:.5}90%{opacity:.2}100%{transform:translateY(-10vh);opacity:0}}
+.particle{position:absolute;border-radius:50%;animation:driftAI1 linear infinite;opacity:0}
+@keyframes driftAI1{0%{transform:translateY(100vh);opacity:0}10%{opacity:.5}90%{opacity:.2}100%{transform:translateY(-10vh);opacity:0}}
 
 .split-screen{position:relative;width:100%;height:100vh;overflow:hidden;display:flex}
 
@@ -80,9 +80,9 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 
 /* ONLINE DOT — левая (дейтинг) */
 .half-online{display:flex;align-items:center;gap:7px;font-size:clamp(11px,2vw,13px);color:rgba(253,246,240,0.5);margin-bottom:12px;justify-content:center}
-.online-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;animation:pulse 1.5s ease-in-out infinite}
+.online-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;animation:pulseAI1 1.5s ease-in-out infinite}
 .half.left .online-dot{background:#4cdf8a;box-shadow:0 0 6px rgba(76,223,138,.8)}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.6);opacity:.5}}
+@keyframes pulseAI1{0%,100%{transform:scale(1)}50%{transform:scale(1.6);opacity:.5}}
 .half-online strong{color:#90f0b8}
 
 /* FREE BADGE — правая (курс) */
@@ -95,8 +95,8 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 .inside-list li::before{content:'✓';color:#22c55e;font-weight:900;font-size:11px;flex-shrink:0}
 
 .half-timer{font-size:clamp(11px,2vw,13px);color:rgba(253,246,240,0.42);margin-bottom:16px;display:flex;align-items:center;gap:6px;justify-content:center}
-.half-timer .fire{font-size:15px;animation:shake 1s ease-in-out infinite}
-@keyframes shake{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.half-timer .fire{font-size:15px;animation:shakeAI1 1s ease-in-out infinite}
+@keyframes shakeAI1{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
 .half-timer .countdown{font-weight:800;font-family:monospace;letter-spacing:1px}
 .half.left  .half-timer .countdown{color:#ffaacc}
 .half.right .half-timer .countdown{color:#ffd4a8}
@@ -126,22 +126,22 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 }
 .half.right:hover .half-btn{box-shadow:0 0 0 3px rgba(255,34,0,0.6),0 12px 40px rgba(255,34,0,0.8)}
 
-.half-btn::after{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:sweep 2.2s ease-in-out infinite}
-@keyframes sweep{0%{left:-100%}50%,100%{left:100%}}
+.half-btn::after{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:sweepAI1 2.2s ease-in-out infinite}
+@keyframes sweepAI1{0%{left:-100%}50%,100%{left:100%}}
 .btn-sub{font-size:clamp(9px,1.6vw,11px);opacity:.8;font-weight:600;display:block;margin-top:4px;letter-spacing:1px}
 
 .divider-wrap{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:60px;z-index:10;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s}
 .split-screen:hover .divider-wrap{opacity:0}
-.divider-line{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(180deg,transparent 0%,rgba(201,169,110,.3) 10%,rgba(255,255,255,.85) 50%,rgba(201,169,110,.3) 90%,transparent 100%);animation:linePulse 2.5s ease-in-out infinite}
-@keyframes linePulse{0%,100%{opacity:.55}50%{opacity:1;filter:drop-shadow(0 0 8px rgba(255,200,100,.8))}}
-.center-badge{background:linear-gradient(135deg,#c9a96e,#edd97a,#c9a96e);color:#1a0a0f;font-size:clamp(7px,1.5vw,9px);font-weight:900;letter-spacing:1.5px;text-transform:uppercase;padding:8px 14px;border-radius:20px;white-space:nowrap;box-shadow:0 0 20px rgba(201,169,110,.7);animation:badgePulse 2s ease-in-out infinite;position:relative;z-index:1}
-@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.divider-line{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:2px;background:linear-gradient(180deg,transparent 0%,rgba(201,169,110,.3) 10%,rgba(255,255,255,.85) 50%,rgba(201,169,110,.3) 90%,transparent 100%);animation:lineAI1 2.5s ease-in-out infinite}
+@keyframes lineAI1{0%,100%{opacity:.55}50%{opacity:1;filter:drop-shadow(0 0 8px rgba(255,200,100,.8))}}
+.center-badge{background:linear-gradient(135deg,#c9a96e,#edd97a,#c9a96e);color:#1a0a0f;font-size:clamp(7px,1.5vw,9px);font-weight:900;letter-spacing:1.5px;text-transform:uppercase;padding:8px 14px;border-radius:20px;white-space:nowrap;box-shadow:0 0 20px rgba(201,169,110,.7);animation:badgeAI1 2s ease-in-out infinite;position:relative;z-index:1}
+@keyframes badgeAI1{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 
 .topbar{position:absolute;top:0;left:0;right:0;z-index:15;padding:clamp(10px,2vw,18px);display:flex;justify-content:center;pointer-events:none}
 .topbar-text{font-size:clamp(9px,1.8vw,11px);color:rgba(253,246,240,.5);letter-spacing:2.5px;text-transform:uppercase;font-weight:600;background:rgba(0,0,0,.5);padding:5px 16px;border-radius:12px;backdrop-filter:blur(8px)}
 
-.hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-180%);z-index:12;font-size:clamp(10px,2vw,12px);color:rgba(253,246,240,.28);letter-spacing:1.5px;text-transform:uppercase;pointer-events:none;white-space:nowrap;animation:hintFade 3s ease-in-out infinite}
-@keyframes hintFade{0%,100%{opacity:.28}50%{opacity:.6}}
+.hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-180%);z-index:12;font-size:clamp(10px,2vw,12px);color:rgba(253,246,240,.28);letter-spacing:1.5px;text-transform:uppercase;pointer-events:none;white-space:nowrap;animation:hintAI1 3s ease-in-out infinite}
+@keyframes hintAI1{0%,100%{opacity:.28}50%{opacity:.6}}
 
 .trust-bar{
   position:absolute;bottom:0;left:0;right:0;z-index:15;
@@ -166,9 +166,9 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 </head>
 <body>
 
-<div class="particles" id="particles"></div>
+<div class="ai1ptc" id="ai1ptc"></div>
 
-<div class="split-screen" id="splitScreen">
+<div class="split-screen" id="ai1ss">
 
   <div class="topbar">
     <div class="topbar-text">✦ Choose your path tonight ✦</div>
@@ -178,7 +178,7 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 
   <!-- LEFT: Dating -->
   <a href="/go?offer=dating_v1"
-     class="half left" id="leftHalf"
+     class="half left" id="ai1left"
      onclick="trackClick('ai-v1','SexyFans','acc3','dating')">
     <video class="bg" autoplay muted loop playsinline>
       <source src="4.mp4" type="video/mp4">
@@ -196,7 +196,7 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
       </div>
       <div class="half-timer">
         <span class="fire">🔥</span>
-        <span>Free access ends in&nbsp;<span class="countdown" id="timer1">02:47:19</span></span>
+        <span>Free access ends in&nbsp;<span class="countdown" id="ai1t1">02:47:19</span></span>
       </div>
       <button class="half-btn">
         Join Free →
@@ -207,7 +207,7 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 
   <!-- RIGHT: AI Course -->
   <a href="/go?offer=course_v1"
-     class="half right" id="rightHalf"
+     class="half right" id="ai1right"
      onclick="trackClick('ai-v1','AIModelLab','acc3','course')">
     <video class="bg" autoplay muted loop playsinline>
       <source src="3.mp4" type="video/mp4">
@@ -230,7 +230,7 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
       </ul>
       <div class="half-timer">
         <span class="fire">🔥</span>
-        <span>Limited spots — closes in&nbsp;<span class="countdown" id="timer2">01:47:22</span></span>
+        <span>Limited spots — closes in&nbsp;<span class="countdown" id="ai1t2">01:47:22</span></span>
       </div>
       <button class="half-btn">
         Get Free Guide →
@@ -241,16 +241,11 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 
   <div class="divider-wrap">
     <div class="divider-line"></div>
-    <div class="center-badge">Choose Your Path</div>
+    <div class="center-badge">Pick Your Path</div>
   </div>
 
   <div class="trust-bar">
-    <div class="trust-items">
-      <div class="trust-item"><span>🔒</span> Secure</div>
-      <div class="trust-item"><span>✅</span> 127+ Students</div>
-      <div class="trust-item"><span>⚡</span> Instant Access</div>
-      <div class="trust-item"><span>📱</span> Mobile Ready</div>
-      <div class="trust-item"><span>🛡️</span> 30-day Refund</div>
+    <div class="trust-items"><div class="trust-item"><span>🔒</span> Secure</div><div class="trust-item"><span>📘</span> 130+ Students</div><div class="trust-item"><span>⚡</span> Instant Access</div><div class="trust-item"><span>📱</span> Mobile Friendly</div><div class="trust-item"><span>🛡️</span> 30-day Guarantee</div></div>
     </div>
     <div class="legal-links">
       <a href="/terms">Terms of Service</a>
@@ -262,7 +257,7 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 </div>
 
 <script>
-const pc=document.getElementById("particles");
+const pc=document.getElementById("ai1ptc");
 for(let i=0;i<25;i++){
   const p=document.createElement("div");p.className="particle";
   p.style.left=Math.random()*100+"%";
@@ -280,11 +275,11 @@ function makeTimer(id,s){
     el.textContent=String(Math.floor(s/3600)).padStart(2,"0")+":"+String(Math.floor(s%3600/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
   },1000);
 }
-makeTimer("timer1",10039);
-makeTimer("timer2",6442);
+makeTimer("ai1t1",10039);
+makeTimer("ai1t2",6442);
 
-const left=document.getElementById("leftHalf"),right=document.getElementById("rightHalf");
-const ss=document.getElementById("splitScreen");
+const left=document.getElementById("ai1left"),right=document.getElementById("ai1right");
+const ss=document.getElementById("ai1ss");
 let active=null,tx=0,ty=0;
 ss.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
 ss.addEventListener("touchmove",e=>{
