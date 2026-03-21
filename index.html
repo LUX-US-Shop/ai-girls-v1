@@ -302,6 +302,23 @@ const GS='https://script.google.com/macros/s/AKfycbwTfP6JjGGsZE17DT6IK8Frbn1lMW6
 function trackClick(landing,offer,acc,offerId){
   try{fetch(GS,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({landing,offer,acc,offer_id:offerId,utm_source:'pinterest',ts:new Date().toISOString()})});}catch(e){}
 }
+
+// Читаем acc из URL и подставляем в кнопки
+(function() {
+  const urlAcc = new URLSearchParams(window.location.search).get('acc');
+  if (!urlAcc) return;
+  document.querySelectorAll('a.half').forEach(function(a) {
+    const href = a.getAttribute('href');
+    if (href && href.indexOf('/go?') === 0) {
+      a.setAttribute('href', href + '&acc=' + urlAcc);
+    }
+    // Обновляем onclick trackClick чтобы acc тоже передавался правильно
+    const onclick = a.getAttribute('onclick');
+    if (onclick) {
+      a.setAttribute('onclick', onclick.replace(/'acc\d+'|'dating_acc\d+'|'acc\d+[a-z]+'/, "'" + urlAcc + "'"));
+    }
+  });
+})();
 </script>
 </body>
 </html>
