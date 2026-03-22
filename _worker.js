@@ -82,8 +82,8 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: SEXYFANS,  suffix: "", type: "dating" },
-    right: { url: COURSE_EN, suffix: "", type: "course" },
+    left:  { url: COURSE_EN, suffix: "", type: "course" },
+    right: { url: SEXYFANS,  suffix: "", type: "dating" },
     defaultAcc: "acc4",
   },
 };
