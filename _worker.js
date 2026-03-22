@@ -20,7 +20,7 @@ const OFFERS = {
 };
 
 const SEXYFANS = "https://t.datsk11.com/403634/9144/37522?aff_sub=";
-const COURSE_EN = "https://ailuxlab.lemonsqueezy.com/checkout/buy/0db66c39-5933-4f6d-8526-7209e80f6c6a";
+const COURSE_EN = "https://ai.lux-us-shop.store/";
 
 const DOMAIN_OFFERS = {
 
