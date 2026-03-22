@@ -20,25 +20,19 @@ const OFFERS = {
 };
 
 const SEXYFANS = "https://t.datsk11.com/403634/9144/37522?aff_sub=";
-
-function getCourseUrl(request) {
-  const lang = request.headers.get("accept-language") || "";
-  return lang.toLowerCase().includes("uk")
-    ? "https://ailuxlab.lemonsqueezy.com/checkout/buy/7d5b4157-0771-4b12-b0cc-f6215158aa9c"
-    : "https://ailuxlab.lemonsqueezy.com/checkout/buy/0db66c39-5933-4f6d-8526-7209e80f6c6a";
-}
+const COURSE_EN = "https://ailuxlab.lemonsqueezy.com/checkout/buy/0db66c39-5933-4f6d-8526-7209e80f6c6a";
 
 const DOMAIN_OFFERS = {
 
   // NAILS
-  "beauty-nails-bbw.pages.dev": {
+  "nails-v1.pages.dev": {
     left:  { url: OFFERS.maybelline, suffix: "_maybelline" },
     right: { url: OFFERS.bathbody,   suffix: "_bathbody"   },
     defaultAcc: "acc1",
   },
   "nails-v2.pages.dev": {
-    left:  { url: OFFERS.bathbody,  suffix: "_bathbody" },
-    right: { url: OFFERS.sephora,   suffix: "_sephora"  },
+    left:  { url: OFFERS.bathbody,   suffix: "_bathbody" },
+    right: { url: OFFERS.sephora,    suffix: "_sephora"  },
     defaultAcc: "acc2",
   },
   "nails-v3.pages.dev": {
@@ -48,7 +42,7 @@ const DOMAIN_OFFERS = {
   },
 
   // HAIR
-  "hair-rewards.pages.dev": {
+  "hair-v1.pages.dev": {
     left:  { url: OFFERS.covergirl,  suffix: "_covergirl"  },
     right: { url: OFFERS.maybelline, suffix: "_maybelline" },
     defaultAcc: "acc6",
@@ -59,13 +53,13 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc7",
   },
   "hair-v3.pages.dev": {
-    left:  { url: OFFERS.bathbody,  suffix: "_bathbody" },
-    right: { url: OFFERS.sephora,   suffix: "_sephora"  },
+    left:  { url: OFFERS.bathbody,   suffix: "_bathbody" },
+    right: { url: OFFERS.sephora,    suffix: "_sephora"  },
     defaultAcc: "acc16",
   },
 
   // GLAM
-  "glam-rewards.pages.dev": {
+  "glam-v1.pages.dev": {
     left:  { url: OFFERS.sephora,   suffix: "_sephora"   },
     right: { url: OFFERS.covergirl, suffix: "_covergirl" },
     defaultAcc: "acc8",
@@ -81,27 +75,15 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc10",
   },
 
-  // AI GIRLS — старые домены (на случай если пины ещё ведут туда)
-  "ai-girls.pages.dev": {
-    left:  { url: SEXYFANS, suffix: "", type: "dating" },
-    right: { url: null,     suffix: "", type: "course" },
-    defaultAcc: "acc3",
-  },
-  "dating-v2.pages.dev": {
-    left:  { url: null,     suffix: "", type: "course" },
-    right: { url: SEXYFANS, suffix: "", type: "dating" },
-    defaultAcc: "acc4",
-  },
-
-  // AI GIRLS — новые домены (Cloudflare Pages проекты ai-girls-v1 и ai-girls-v2)
+  // AI GIRLS
   "ai-girls-v1.pages.dev": {
-    left:  { url: SEXYFANS, suffix: "", type: "dating" },
-    right: { url: null,     suffix: "", type: "course" },
+    left:  { url: SEXYFANS,  suffix: "", type: "dating" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: null,     suffix: "", type: "course" },
-    right: { url: SEXYFANS, suffix: "", type: "dating" },
+    left:  { url: SEXYFANS,  suffix: "", type: "dating" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc4",
   },
 };
@@ -142,10 +124,17 @@ export default {
       const offerCfg = domainCfg[side];
       const accId = acc || domainCfg.defaultAcc;
 
+      // Курс — редирект без s2
       if (offerCfg.type === "course") {
-        return Response.redirect(getCourseUrl(request), 302);
+        return Response.redirect(offerCfg.url, 302);
       }
 
+      // Dating — s2 = accId
+      if (offerCfg.type === "dating") {
+        return Response.redirect(offerCfg.url + accId, 302);
+      }
+
+      // Beauty — s2 = accId + suffix
       const s2 = offerCfg.suffix ? accId + offerCfg.suffix : accId;
       return Response.redirect(offerCfg.url + s2, 302);
     }
