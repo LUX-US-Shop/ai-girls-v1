@@ -19,7 +19,7 @@ const OFFERS = {
   covergirl:  `https://afflat3e1.com/trk/lnk/${TRK}/?o=24943&${AFF}&k=F8DF108A7BCAE8B583248B326A96C8FF&l=26034&s1=pinterest&s2=`,
 };
 
-const SEXYFANS = "https://t.datsk11.com/403634/9144/37522?aff_sub=";
+const SEXYFANS = "https://t.crdtg2.com/403634/7412?bo=2753,2754,2755,2756&source=Pinterest3&aff_sub5=SF_006OG000004lmDN";
 const COURSE_EN = "https://ai.lux-us-shop.store/";
 
 const DOMAIN_OFFERS = {
@@ -77,13 +77,13 @@ const DOMAIN_OFFERS = {
 
   // AI GIRLS
   "ai-girls-v1.pages.dev": {
-    left:  { url: SEXYFANS,  suffix: "", type: "dating" },
+    left:  { url: SEXYFANS,  suffix: "", type: "direct" },
     right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
     left:  { url: COURSE_EN, suffix: "", type: "course" },
-    right: { url: SEXYFANS,  suffix: "", type: "dating" },
+    right: { url: SEXYFANS,  suffix: "", type: "direct" },
     defaultAcc: "acc4",
   },
 };
@@ -126,6 +126,11 @@ export default {
 
       // Курс — редирект без s2
       if (offerCfg.type === "course") {
+        return Response.redirect(offerCfg.url, 302);
+      }
+
+      // Direct — редирект без s2
+      if (offerCfg.type === "direct") {
         return Response.redirect(offerCfg.url, 302);
       }
 
