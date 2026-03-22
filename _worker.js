@@ -19,10 +19,8 @@ const OFFERS = {
   covergirl:  `https://afflat3e1.com/trk/lnk/${TRK}/?o=24943&${AFF}&k=F8DF108A7BCAE8B583248B326A96C8FF&l=26034&s1=pinterest&s2=`,
 };
 
-// CrakRevenue — SexyFans
 const SEXYFANS = "https://t.datsk11.com/403634/9144/37522?aff_sub=";
 
-// Курс — определяем язык браузера (UA = украинский)
 function getCourseUrl(request) {
   const lang = request.headers.get("accept-language") || "";
   return lang.toLowerCase().includes("uk")
@@ -83,16 +81,26 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc10",
   },
 
-  // AI GIRLS
-  // ai-girls.pages.dev — LEFT: SexyFans, RIGHT: Курс
+  // AI GIRLS — старые домены (на случай если пины ещё ведут туда)
   "ai-girls.pages.dev": {
     left:  { url: SEXYFANS, suffix: "", type: "dating" },
-    right: { url: null,     suffix: "", type: "course" }, // курс — URL берётся динамически
+    right: { url: null,     suffix: "", type: "course" },
     defaultAcc: "acc3",
   },
-  // dating-v2.pages.dev — LEFT: Курс, RIGHT: SexyFans
   "dating-v2.pages.dev": {
-    left:  { url: null,     suffix: "", type: "course" }, // курс — URL берётся динамически
+    left:  { url: null,     suffix: "", type: "course" },
+    right: { url: SEXYFANS, suffix: "", type: "dating" },
+    defaultAcc: "acc4",
+  },
+
+  // AI GIRLS — новые домены (Cloudflare Pages проекты ai-girls-v1 и ai-girls-v2)
+  "ai-girls-v1.pages.dev": {
+    left:  { url: SEXYFANS, suffix: "", type: "dating" },
+    right: { url: null,     suffix: "", type: "course" },
+    defaultAcc: "acc3",
+  },
+  "ai-girls-v2.pages.dev": {
+    left:  { url: null,     suffix: "", type: "course" },
     right: { url: SEXYFANS, suffix: "", type: "dating" },
     defaultAcc: "acc4",
   },
@@ -123,7 +131,7 @@ export default {
 
     // /go?offer=left|right&acc=accX → affiliate редирект
     if (url.pathname === "/go") {
-      const side = url.searchParams.get("offer"); // "left" или "right"
+      const side = url.searchParams.get("offer");
       const acc  = url.searchParams.get("acc");
       const domainCfg = DOMAIN_OFFERS[hostname];
 
@@ -134,14 +142,10 @@ export default {
       const offerCfg = domainCfg[side];
       const accId = acc || domainCfg.defaultAcc;
 
-      // Если это курс — определяем URL по языку браузера
-      let offerUrl;
       if (offerCfg.type === "course") {
-        offerUrl = getCourseUrl(request);
-        return Response.redirect(offerUrl, 302);
+        return Response.redirect(getCourseUrl(request), 302);
       }
 
-      // Дейтинг и beauty/hair/glam — стандартная логика
       const s2 = offerCfg.suffix ? accId + offerCfg.suffix : accId;
       return Response.redirect(offerCfg.url + s2, 302);
     }
