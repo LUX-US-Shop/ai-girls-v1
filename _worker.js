@@ -20,6 +20,7 @@ const OFFERS = {
 };
 
 const SEXYFANS = "https://t.crdtg2.com/403634/7412?bo=2753,2754,2755,2756&source=Pinterest3&aff_sub5=SF_006OG000004lmDN";
+const MILFFINDER = "https://t.crdtg2.com/403634/4999?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN";
 const COURSE_EN = "https://ai.lux-us-shop.store/";
 
 const DOMAIN_OFFERS = {
@@ -82,8 +83,8 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: COURSE_EN, suffix: "", type: "course" },
-    right: { url: SEXYFANS,  suffix: "", type: "direct" },
+    left:  { url: COURSE_EN,   suffix: "", type: "course" },
+    right: { url: MILFFINDER,  suffix: "", type: "direct" },
     defaultAcc: "acc4",
   },
 };
