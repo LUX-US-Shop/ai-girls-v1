@@ -1,6 +1,6 @@
 // _worker.js — Cloudflare Pages Function
-// Положить в корень каждого из 11 GitHub репозиториев
-// Один файл для всех доменов — hostname определяется автоматически
+// Положить в корень репозиториев ai-girls-v1 и ai-girls-v2
+// GEO-редирект работает ТОЛЬКО при клике на /go — краулеры всегда получают статику
 
 const TRK = "80DBA135-99F1-423A-BFAD-362D7DE2F22F";
 const AFF = "c=918277&a=785920";
@@ -19,9 +19,9 @@ const OFFERS = {
   covergirl:  `https://afflat3e1.com/trk/lnk/${TRK}/?o=24943&${AFF}&k=F8DF108A7BCAE8B583248B326A96C8FF&l=26034&s1=pinterest&s2=`,
 };
 
-const SEXYFANS = "https://t.crdtg2.com/403634/7412?bo=2753,2754,2755,2756&source=Pinterest3&aff_sub5=SF_006OG000004lmDN";
+const SEXYFANS   = "https://t.crdtg2.com/403634/7412?bo=2753,2754,2755,2756&source=Pinterest3&aff_sub5=SF_006OG000004lmDN";
 const MILFFINDER = "https://t.crdtg2.com/403634/4999?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN";
-const COURSE_EN = "https://ai.lux-us-shop.store/";
+const COURSE_EN  = "https://ai.lux-us-shop.store/";
 
 const DOMAIN_OFFERS = {
 
@@ -83,8 +83,8 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: COURSE_EN,   suffix: "", type: "course" },
-    right: { url: MILFFINDER,  suffix: "", type: "direct" },
+    left:  { url: COURSE_EN,  suffix: "", type: "course" },
+    right: { url: MILFFINDER, suffix: "", type: "direct" },
     defaultAcc: "acc4",
   },
 };
@@ -96,34 +96,28 @@ function buildGeoUrl(cfg, hostname) {
 
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+    const url      = new URL(request.url);
     const hostname = url.hostname;
-    const country = request.cf?.country || "US";
+    const country  = request.cf?.country || "US";
 
-    // Pinterest краулер → чистая страница без редиректа
-    const ua = request.headers.get("User-Agent") || "";
-    if (ua.includes("Pinterestbot") || ua.includes("Pinterest/")) {
-      return env.ASSETS.fetch(request);
-    }
-
-    // GB, IE, AU, CA → гео-оффер
-    const geoCfg = GEO[country];
-    if (geoCfg) {
-      return Response.redirect(buildGeoUrl(geoCfg, hostname), 302);
-    }
-
-    // /go?offer=left|right&acc=accX → affiliate редирект
+    // ── /go → affiliate редирект (включая GEO) ──────────────────────────
     if (url.pathname === "/go") {
-      const side = url.searchParams.get("offer");
-      const acc  = url.searchParams.get("acc");
+      const side      = url.searchParams.get("offer");
+      const acc       = url.searchParams.get("acc");
       const domainCfg = DOMAIN_OFFERS[hostname];
 
       if (!domainCfg || !domainCfg[side]) {
         return new Response("Not found", { status: 404 });
       }
 
+      // GB, IE, AU, CA → гео-оффер (только при реальном клике)
+      const geoCfg = GEO[country];
+      if (geoCfg) {
+        return Response.redirect(buildGeoUrl(geoCfg, hostname), 302);
+      }
+
       const offerCfg = domainCfg[side];
-      const accId = acc || domainCfg.defaultAcc;
+      const accId    = acc || domainCfg.defaultAcc;
 
       // Курс — редирект без s2
       if (offerCfg.type === "course") {
@@ -145,7 +139,7 @@ export default {
       return Response.redirect(offerCfg.url + s2, 302);
     }
 
-    // Всё остальное → лендинг (статика из Pages)
+    // ── Всё остальное (краулеры, боты, визиты /) → статика ──────────────
     return env.ASSETS.fetch(request);
   },
 };
