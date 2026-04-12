@@ -19,6 +19,7 @@
 <meta name="p:domain_verify" content="580d8d4f4d615c4f05cef0080b68ea75"/>
 <title>AI Model Lab — Free Guide 2026</title>
 <style>
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-inout:cubic-bezier(0.77,0,0.175,1)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100vh;overflow:hidden}
 
@@ -28,16 +29,16 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 
 .split-screen{position:relative;width:100%;height:100vh;overflow:hidden;display:flex}
 
-.half{position:relative;height:100%;overflow:hidden;text-decoration:none;flex:1;transition:flex 0.55s cubic-bezier(0.77,0,0.18,1);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.half{position:relative;height:100%;overflow:hidden;text-decoration:none;flex:1;transition:flex 0.5s var(--ease-inout);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .split-screen:hover .half.left:hover{flex:1.25}
 .split-screen:hover .half.right:hover{flex:1.25}
 .split-screen:hover .half.left:not(:hover){flex:0.75}
 .split-screen:hover .half.right:not(:hover){flex:0.75}
 
-.half video.bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;transition:transform 0.55s,filter 0.45s;filter:brightness(0.45) saturate(0.8);pointer-events:none}
+.half video.bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 10%;transition:transform 0.45s var(--ease-out),filter 0.35s ease;filter:brightness(0.45) saturate(0.8);pointer-events:none}
 .half:hover video.bg{transform:scale(1.02);filter:brightness(0.68) saturate(1.3)}
 
-.half-tint{position:absolute;inset:0;z-index:1;transition:opacity .45s;opacity:0.35;pointer-events:none}
+.half-tint{position:absolute;inset:0;z-index:1;transition:opacity .3s ease;opacity:0.35;pointer-events:none}
 .half.left  .half-tint{background:linear-gradient(160deg,rgba(192,32,110,0.6) 0%,transparent 55%)}
 .half.right .half-tint{background:linear-gradient(200deg,rgba(255,130,0,0.55) 0%,transparent 55%)}
 .half:hover .half-tint{opacity:0.7}
@@ -46,7 +47,7 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 .half.left  .half-gradient{background:linear-gradient(transparent,rgba(8,5,15,0.98))}
 .half.right .half-gradient{background:linear-gradient(transparent,rgba(8,5,15,0.98))}
 
-.half-content{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:clamp(16px,3vw,36px) clamp(14px,2.5vw,28px) clamp(52px,9vh,80px);text-align:center;display:flex;flex-direction:column;align-items:center;transform:translateY(8px);transition:transform .45s,opacity .45s;opacity:0.75;pointer-events:none}
+.half-content{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:clamp(16px,3vw,36px) clamp(14px,2.5vw,28px) clamp(52px,9vh,80px);text-align:center;display:flex;flex-direction:column;align-items:center;transform:translateY(8px);transition:transform .3s var(--ease-out),opacity .25s ease;opacity:0.75;pointer-events:none}
 .half:hover .half-content{transform:translateY(0);opacity:1}
 
 .half-label{font-size:clamp(9px,1.8vw,11px);font-weight:800;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;background:rgba(0,0,0,0.45);padding:4px 12px;border-radius:10px}
@@ -82,7 +83,8 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
 .half.left  .half-timer .countdown{color:#ffaacc}
 .half.right .half-timer .countdown{color:#ffd4a8}
 
-.half-btn{display:inline-flex;flex-direction:column;align-items:center;padding:clamp(13px,2.5vw,17px) clamp(28px,5.5vw,44px);border-radius:50px;font-size:clamp(14px,2.8vw,18px);font-weight:900;color:#fff;border:none;cursor:pointer;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:scale(0.88);transition:transform .35s,box-shadow .35s;position:relative;overflow:hidden;letter-spacing:.5px;text-decoration:none}
+.half-btn{display:inline-flex;flex-direction:column;align-items:center;padding:clamp(13px,2.5vw,17px) clamp(28px,5.5vw,44px);border-radius:50px;font-size:clamp(14px,2.8vw,18px);font-weight:900;color:#fff;border:none;cursor:pointer;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transform:scale(0.88);transition:transform .25s var(--ease-out),box-shadow .25s ease;position:relative;overflow:hidden;letter-spacing:.5px;text-decoration:none}
+.half-btn:active{transform:scale(0.94) !important}
 .half:hover .half-btn{transform:scale(1)}
 
 .half.left .half-btn{background:linear-gradient(135deg,#c0206e,#8c1050);box-shadow:0 8px 32px rgba(192,32,110,0.65)}
@@ -120,11 +122,15 @@ body{background:#08050f;font-family:"Helvetica Neue",Arial,sans-serif;height:100
   .half-content{opacity:1;transform:none;pointer-events:auto}
   .half-btn{transform:scale(1)}
 }
+@media(prefers-reduced-motion:reduce){
+  .half,.half video.bg,.half-content,.half-tint,.half-btn{transition:none}
+  .particle,.online-dot,.center-badge,.divider-line,.half-timer .fire,.half-btn::after{animation:none}
+}
 </style>
 </head>
 <body>
 
-<div class="v1ptc" id="v1ptc"></div>
+<div class="particles" id="v1ptc"></div>
 
 <div class="split-screen" id="v1ss">
 
