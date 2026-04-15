@@ -20,7 +20,7 @@ const OFFERS = {
 };
 
 const SEXYFANS   = "https://t.crdtg2.com/403634/7412?bo=2753,2754,2755,2756&source=Pinterest3&aff_sub5=SF_006OG000004lmDN";
-const MILFFINDER = "https://t.crdtg2.com/403634/4999?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN";
+const JERKMATE  = "https://t.ajrkmx1.com/403634/8780/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN";
 const COURSE_EN  = "https://ai.lux-us-shop.store/";
 
 const DOMAIN_OFFERS = {
@@ -84,7 +84,7 @@ const DOMAIN_OFFERS = {
   },
   "ai-girls-v2.pages.dev": {
     left:  { url: COURSE_EN,  suffix: "", type: "course" },
-    right: { url: MILFFINDER, suffix: "", type: "direct" },
+    right: { url: JERKMATE,  suffix: "", type: "direct" },
     defaultAcc: "acc4",
   },
 };
@@ -110,9 +110,10 @@ export default {
         return new Response("Not found", { status: 404 });
       }
 
-      // GB, IE, AU, CA → гео-оффер (только при реальном клике)
+      // GB, IE, AU, CA → гео-оффер (только для beauty страниц, не для AI Girls)
+      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev"]);
       const geoCfg = GEO[country];
-      if (geoCfg) {
+      if (geoCfg && !AI_GIRLS.has(hostname)) {
         return Response.redirect(buildGeoUrl(geoCfg, hostname), 302);
       }
 
