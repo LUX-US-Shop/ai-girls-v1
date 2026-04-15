@@ -78,7 +78,7 @@ const DOMAIN_OFFERS = {
 
   // AI GIRLS
   "ai-girls-v1.pages.dev": {
-    left:  { url: SEXYFANS,  suffix: "", type: "direct" },
+    left:  { url: JERKMATE,  suffix: "", type: "direct" },
     right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc3",
   },
