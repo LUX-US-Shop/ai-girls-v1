@@ -1,5 +1,5 @@
 // _worker.js — Cloudflare Pages Function
-// Положить в корень репозиториев ai-girls-v1 и ai-girls-v2
+// Положить в корень репозиториев ai-girls-v1..v5
 // GEO-редирект работает ТОЛЬКО при клике на /go — краулеры всегда получают статику
 
 const TRK = "80DBA135-99F1-423A-BFAD-362D7DE2F22F";
@@ -83,9 +83,24 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: COURSE_EN,  suffix: "", type: "course" },
-    right: { url: JERKMATE,  suffix: "", type: "direct" },
+    left:  { url: COURSE_EN, suffix: "", type: "course" },
+    right: { url: JERKMATE, suffix: "", type: "direct" },
     defaultAcc: "acc4",
+  },
+  "ai-girls-v3.pages.dev": {
+    left:  { url: JERKMATE,  suffix: "", type: "direct" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
+    defaultAcc: "acc9",
+  },
+  "ai-girls-v4.pages.dev": {
+    left:  { url: COURSE_EN, suffix: "", type: "course" },
+    right: { url: JERKMATE,  suffix: "", type: "direct" },
+    defaultAcc: "acc19",
+  },
+  "ai-girls-v5.pages.dev": {
+    left:  { url: JERKMATE,  suffix: "", type: "direct" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
+    defaultAcc: "acc20",
   },
 };
 
@@ -111,7 +126,7 @@ export default {
       }
 
       // GB, IE, AU, CA → гео-оффер (только для beauty страниц, не для AI Girls)
-      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev"]);
+      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev", "ai-girls-v3.pages.dev", "ai-girls-v4.pages.dev", "ai-girls-v5.pages.dev"]);
       const geoCfg = GEO[country];
       if (geoCfg && !AI_GIRLS.has(hostname)) {
         return Response.redirect(buildGeoUrl(geoCfg, hostname), 302);
