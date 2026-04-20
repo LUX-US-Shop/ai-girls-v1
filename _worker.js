@@ -102,6 +102,11 @@ const DOMAIN_OFFERS = {
     right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc20",
   },
+  "ai-girls-v6.pages.dev": {
+    left:  { url: JERKMATE,  suffix: "", type: "direct" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
+    defaultAcc: "acc21",
+  },
 };
 
 function buildGeoUrl(cfg, hostname) {
@@ -126,7 +131,7 @@ export default {
       }
 
       // GB, IE, AU, CA → гео-оффер (только для beauty страниц, не для AI Girls)
-      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev", "ai-girls-v3.pages.dev", "ai-girls-v4.pages.dev", "ai-girls-v5.pages.dev"]);
+      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev", "ai-girls-v3.pages.dev", "ai-girls-v4.pages.dev", "ai-girls-v5.pages.dev", "ai-girls-v6.pages.dev"]);
       const geoCfg = GEO[country];
       if (geoCfg && !AI_GIRLS.has(hostname)) {
         return Response.redirect(buildGeoUrl(geoCfg, hostname), 302);
