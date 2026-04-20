@@ -107,6 +107,12 @@ const DOMAIN_OFFERS = {
     right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc21",
   },
+  // Custom domain alias для ai.lux-us-shop.store → ai-girls-v1 (acc3)
+  "ai.lux-us-shop.store": {
+    left:  { url: JERKMATE,  suffix: "", type: "direct" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
+    defaultAcc: "acc3",
+  },
   // Custom domain alias для luxe_ai_queens (bio link)
   "dating.lux-us-shop.store": {
     left:  { url: JERKMATE,  suffix: "", type: "direct" },
@@ -137,7 +143,7 @@ export default {
       }
 
       // GB, IE, AU, CA → гео-оффер (только для beauty страниц, не для AI Girls)
-      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev", "ai-girls-v3.pages.dev", "ai-girls-v4.pages.dev", "ai-girls-v5.pages.dev", "ai-girls-v6.pages.dev", "dating.lux-us-shop.store"]);
+      const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev", "ai-girls-v3.pages.dev", "ai-girls-v4.pages.dev", "ai-girls-v5.pages.dev", "ai-girls-v6.pages.dev", "ai.lux-us-shop.store", "dating.lux-us-shop.store"]);
       const geoCfg = GEO[country];
       if (geoCfg && !AI_GIRLS.has(hostname)) {
         return Response.redirect(buildGeoUrl(geoCfg, hostname), 302);
