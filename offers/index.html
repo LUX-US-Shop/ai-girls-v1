@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex">
+<title>AuraMuse — Choose Your Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --gold:    #b5845a;
+  --gold-hi: #e0b47a;
+  --cream:   #f5ede4;
+  --black:   #140c05;
+  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+  --muted: rgba(247,242,236,0.5);
+  --dim:   rgba(247,242,236,0.25);
+}
+html, body { height:100%; overflow:hidden; background:var(--black); color:var(--cream); font-family:'DM Sans',sans-serif; }
+body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:180px 180px; opacity:0.035; pointer-events:none; z-index:999; mix-blend-mode:overlay; }
+.stage { display:flex; width:100%; height:100vh; position:relative; }
+.wing { position:relative; flex:1; height:100%; overflow:hidden; text-decoration:none; color:var(--cream); transition:flex 0.65s var(--ease); -webkit-tap-highlight-color:transparent; }
+.stage:not(.mobile):hover .wing:hover { flex:1.35; }
+.stage:not(.mobile):hover .wing:not(:hover) { flex:0.65; }
+.wing__video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 15%; filter:brightness(0.3) saturate(0.65); transition:transform 0.7s var(--ease), filter 0.5s ease; }
+.wing:hover .wing__video { transform:scale(1.04); filter:brightness(0.5) saturate(1.1); }
+.wing__tint { position:absolute; inset:0; z-index:1; pointer-events:none; transition:opacity 0.5s ease; opacity:0.5; }
+.wing--left  .wing__tint { background:radial-gradient(ellipse 120% 80% at 30% 40%, rgba(140,60,40,0.7) 0%, transparent 65%); }
+.wing--right .wing__tint { background:radial-gradient(ellipse 120% 80% at 70% 40%, rgba(80,65,20,0.65) 0%, transparent 65%); }
+.wing:hover .wing__tint { opacity:0.9; }
+.wing__fade { position:absolute; bottom:0; left:0; right:0; height:82%; z-index:2; pointer-events:none; background:linear-gradient(transparent, rgba(0,0,0,0.97) 88%); }
+.wing__body { position:absolute; bottom:0; left:0; right:0; z-index:10; padding:clamp(16px,3vw,40px) clamp(14px,2.5vw,32px) clamp(52px,9vh,84px); display:flex; flex-direction:column; align-items:center; text-align:center; gap:9px; transform:translateY(10px); opacity:0.82; transition:transform 0.45s var(--ease), opacity 0.3s ease; }
+.wing:hover .wing__body { transform:translateY(0); opacity:1; }
+.badge { display:inline-flex; align-items:center; gap:7px; font-size:8px; font-weight:600; letter-spacing:3.5px; text-transform:uppercase; border:1px solid rgba(201,169,110,0.25); padding:5px 14px; border-radius:2px; backdrop-filter:blur(10px); background:rgba(0,0,0,0.5); color:var(--gold); }
+.live-dot { width:6px; height:6px; border-radius:50%; background:#ff4455; box-shadow:0 0 8px #ff4455; animation:livePulse 1.8s ease infinite; }
+@keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+.wing__title { font-family:'Playfair Display', serif; font-size:clamp(26px,4.2vw,52px); font-weight:900; line-height:1.0; letter-spacing:-0.5px; }
+.wing__title em { font-style:italic; color:var(--gold-hi); }
+.wing__desc { font-size:clamp(11px,1.6vw,13px); font-weight:300; color:var(--muted); line-height:1.6; max-width:270px; }
+.wing__stat { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:500; }
+.wing__timer { font-size:10px; color:var(--dim); display:flex; align-items:center; gap:6px; letter-spacing:0.5px; }
+.wing__timer b { color:var(--cream); font-variant-numeric:tabular-nums; }
+.proof-bar { display:flex; flex-direction:column; gap:4px; align-items:center; padding:10px 16px; border:1px solid rgba(201,169,110,0.18); border-radius:2px; background:rgba(0,0,0,0.5); backdrop-filter:blur(10px); width:100%; max-width:280px; }
+.proof-quote { font-size:11px; font-style:italic; color:rgba(247,242,236,0.7); line-height:1.5; }
+.proof-name { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); font-weight:600; }
+.cta-btn { display:inline-block; padding:13px 28px; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--black); background:linear-gradient(135deg,#c47860 0%,#e8a888 50%,#c47860 100%); background-size:200% 100%; border:none; border-radius:2px; cursor:pointer; text-decoration:none; transition:background-position 0.5s, transform 0.3s, box-shadow 0.3s; box-shadow:0 4px 24px rgba(196,120,96,0.2); }
+.cta-btn:hover { background-position:100% 0; transform:translateY(-2px); }
+.wing--right .cta-btn { background:linear-gradient(135deg,var(--gold) 0%,var(--gold-hi) 50%,var(--gold) 100%); background-size:200% 100%; box-shadow:0 4px 24px rgba(201,169,110,0.2); }
+.wing--right .cta-btn:hover { box-shadow:0 8px 32px rgba(201,169,110,0.4); }
+.btn-note { display:block; font-size:8px; letter-spacing:1px; opacity:0.55; margin-top:3px; font-weight:400; }
+.divider { position:absolute; top:0; bottom:0; left:50%; transform:translateX(-50%); width:44px; z-index:20; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; transition:opacity 0.4s; gap:0; }
+.stage:hover .divider { opacity:0; }
+.div-line { flex:1; width:1px; background:linear-gradient(to bottom,transparent,rgba(201,169,110,0.55) 30%,rgba(201,169,110,0.55) 70%,transparent); }
+.div-gem { color:var(--gold); font-size:13px; padding:8px 0; animation:gemGlow 3s ease-in-out infinite; }
+@keyframes gemGlow { 0%,100%{text-shadow:0 0 8px rgba(201,169,110,0.5)} 50%{text-shadow:0 0 24px rgba(245,224,152,1), 0 0 48px rgba(201,169,110,0.4)} }
+.trustbar { position:fixed; bottom:0; left:0; right:0; z-index:50; display:flex; justify-content:center; align-items:center; gap:clamp(14px,3.5vw,36px); padding:9px 20px; background:rgba(0,0,0,0.88); backdrop-filter:blur(14px); border-top:1px solid rgba(201,169,110,0.08); }
+.trustbar span { font-size:clamp(8px,1.4vw,10px); letter-spacing:1.5px; text-transform:uppercase; color:var(--dim); font-weight:500; white-space:nowrap; }
+.trustbar a { font-size:8px; color:rgba(247,242,236,0.15); text-decoration:underline; text-underline-offset:2px; }
+.wing--left  { animation:wLeft  0.8s var(--ease) both; }
+.wing--right { animation:wRight 0.8s var(--ease) 0.1s both; }
+@keyframes wLeft  { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:none} }
+@keyframes wRight { from{opacity:0;transform:translateX(16px)}  to{opacity:1;transform:none} }
+@media (max-width:600px) {
+  .stage { flex-direction:column; }
+  .wing  { flex:none !important; height:50vh; }
+  .wing__body { padding:10px 16px 44px; transform:none !important; opacity:1 !important; gap:7px; }
+  .wing__title { font-size:clamp(20px,5.5vw,28px); }
+  .wing__desc { font-size:11px; }
+  .divider { display:none; }
+  .proof-bar { max-width:100%; }
+  .trustbar { gap:10px; }
+}
+@media (hover:none) { .wing__video { filter:brightness(0.48) saturate(1); } .wing__tint { opacity:0.75; } }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+  <!-- LEFT -->
+  <a class="wing wing--left" href="/go?offer=left" id="wingLeft"
+     onclick="trackClick('ai-girls-v1','Jerkmate',window._acc||'','direct')">
+    <video class="wing__video" autoplay muted loop playsinline preload="metadata">
+      <source src="../4.mp4" type="video/mp4">
+    </video>
+    <div class="wing__tint"></div>
+    <div class="wing__fade"></div>
+    <div class="wing__body">
+      <div class="badge"><span class="live-dot"></span>🌿 Live Escape</div>
+      <div class="wing__title">Private<br><em>Garden</em><br>Sessions</div>
+      <div class="wing__desc">Real girls. Intimate shows. Aesthetic vibes.<br>11,203 members inside.</div>
+      <div class="wing__stat">🌸 2,800+ models streaming now</div>
+      <div class="wing__timer">Free access expires in&nbsp;<b id="timer1">02:47:09</b></div>
+      <a class="cta-btn" href="/go?offer=left" id="leftCta">
+        Enter Free — Now
+        <span class="btn-note">No card required · Instant access</span>
+      </a>
+    </div>
+  </a>
+  <!-- DIVIDER -->
+  <div class="divider">
+    <div class="div-line"></div>
+    <div class="div-gem">◆</div>
+    <div class="div-line"></div>
+  </div>
+  <!-- RIGHT -->
+  <a class="wing wing--right" href="/go?offer=right" id="wingRight"
+     onclick="trackClick('ai-girls-v1','AIModelLab',window._acc||'','direct')">
+    <video class="wing__video" autoplay muted loop playsinline preload="metadata">
+      <source src="../3.mp4" type="video/mp4">
+    </video>
+    <div class="wing__tint"></div>
+    <div class="wing__fade"></div>
+    <div class="wing__body">
+      <div class="badge">✨ Creator Blueprint</div>
+      <div class="wing__title">Build Your<br><em>AI Empire</em></div>
+      <div class="wing__desc">Boho aesthetic accounts. From zero<br>to your first $1,000 with AI.</div>
+      <div class="proof-bar">
+        <div class="proof-quote">"Went from 0 to 22K followers in 6 weeks.<br>All AI content."</div>
+        <div class="proof-name">— Sofia R., Creator since Feb 2026</div>
+      </div>
+      <div class="wing__timer">Spots closing in&nbsp;<b id="timer2">05:14:33</b></div>
+      <a class="cta-btn" href="/go?offer=right" id="rightCta">
+        Get Free Access
+        <span class="btn-note">No card required · Start today</span>
+      </a>
+    </div>
+  </a>
+</main>
+<div class="trustbar">
+  <span>🔒 Secure</span>
+  <span>500+ Creators</span>
+  <span>⚡ Instant Access</span>
+  <span>🛡️ 30-Day Guarantee</span>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+</div>
+<script>
+const GS = 'https://script.google.com/macros/s/AKfycbxTnxPi9NM2UMS2STc3cYKUYpZC90HTCL5RYWIX8rKLseaEYXH8nr1yMLroba7RYpOA/exec';
+window._acc = new URLSearchParams(location.search).get('acc') || '';
+function trackClick(landing, offer, acc, offerId) {
+  try { fetch(GS, {method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({landing,offer,acc,offer_id:offerId,utm_source:'pinterest',ts:new Date().toISOString()})})} catch(e) {}
+}
+(function() {
+  const acc = window._acc;
+  if (!acc) return;
+  ['wingLeft','leftCta','wingRight','rightCta'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const h = el.getAttribute('href');
+    if (h) el.setAttribute('href', h + '&acc=' + acc);
+  });
+})();
+function makeTimer(id, s) {
+  const el = document.getElementById(id);
+  setInterval(() => {
+    if (s <= 0) s = 14400; s--;
+    el.textContent = String(Math.floor(s/3600)).padStart(2,'0') + ':' + String(Math.floor(s%3600/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+  }, 1000);
+}
+makeTimer('timer1', 10029);
+makeTimer('timer2', 18873);
+if (!window.matchMedia('(hover:hover)').matches) document.getElementById('stage').classList.add('mobile');
+</script>
+</body>
+</html>

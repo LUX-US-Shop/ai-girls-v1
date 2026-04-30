@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <rect width="1200" height="630" fill="#140c05"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#g)"/>
+  <defs>
+    <radialGradient id="g" cx="30%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#b5845a" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#140c05" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <line x1="80" y1="315" x2="1120" y2="315" stroke="#b5845a" stroke-opacity="0.12" stroke-width="1"/>
+  <text x="600" y="270" font-family="Georgia,serif" font-size="88" font-weight="bold"
+        fill="#f5ede4" text-anchor="middle" dominant-baseline="middle">AuraMuse</text>
+  <text x="600" y="370" font-family="Arial,sans-serif" font-size="24" letter-spacing="6"
+        fill="#b5845a" text-anchor="middle" dominant-baseline="middle" text-transform="uppercase">NATURAL AI BEAUTY · EST. 2026</text>
+  <rect x="520" y="402" width="160" height="2" fill="#b5845a" opacity="0.5"/>
+</svg>

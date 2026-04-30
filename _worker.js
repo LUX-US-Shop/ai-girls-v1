@@ -1,5 +1,5 @@
 // _worker.js — Cloudflare Pages Function
-// Положить в корень репозиториев ai-girls-v1..v5
+// Положить в корень репозиториев ai-girls-v1..v6
 // GEO-редирект работает ТОЛЬКО при клике на /go — краулеры всегда получают статику
 
 const TRK = "80DBA135-99F1-423A-BFAD-362D7DE2F22F";
@@ -83,8 +83,8 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: COURSE_EN, suffix: "", type: "course" },
-    right: { url: JERKMATE, suffix: "", type: "direct" },
+    left:  { url: JERKMATE,  suffix: "", type: "direct" },
+    right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc4",
   },
   "ai-girls-v3.pages.dev": {
@@ -107,13 +107,12 @@ const DOMAIN_OFFERS = {
     right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc21",
   },
-  // Custom domain alias для ai.lux-us-shop.store → ai-girls-v1 (acc3)
+  // Custom domain alias
   "ai.lux-us-shop.store": {
     left:  { url: JERKMATE,  suffix: "", type: "direct" },
     right: { url: COURSE_EN, suffix: "", type: "course" },
     defaultAcc: "acc3",
   },
-  // Custom domain alias для luxe_ai_queens (bio link)
   "dating.lux-us-shop.store": {
     left:  { url: JERKMATE,  suffix: "", type: "direct" },
     right: { url: COURSE_EN, suffix: "", type: "course" },
@@ -132,7 +131,7 @@ export default {
     const hostname = url.hostname;
     const country  = request.cf?.country || "US";
 
-    // ── /go → affiliate редирект (включая GEO) ──────────────────────────
+    // ── /go → affiliate редирект ──────────────────────────
     if (url.pathname === "/go") {
       const side      = url.searchParams.get("offer");
       const acc       = url.searchParams.get("acc");
@@ -142,7 +141,6 @@ export default {
         return new Response("Not found", { status: 404 });
       }
 
-      // GB, IE, AU, CA → гео-оффер (только для beauty страниц, не для AI Girls)
       const AI_GIRLS = new Set(["ai-girls-v1.pages.dev", "ai-girls-v2.pages.dev", "ai-girls-v3.pages.dev", "ai-girls-v4.pages.dev", "ai-girls-v5.pages.dev", "ai-girls-v6.pages.dev", "ai.lux-us-shop.store", "dating.lux-us-shop.store"]);
       const geoCfg = GEO[country];
       if (geoCfg && !AI_GIRLS.has(hostname)) {
@@ -152,27 +150,21 @@ export default {
       const offerCfg = domainCfg[side];
       const accId    = acc || domainCfg.defaultAcc;
 
-      // Курс — редирект без s2
       if (offerCfg.type === "course") {
         return Response.redirect(offerCfg.url, 302);
       }
-
-      // Direct — редирект без s2
       if (offerCfg.type === "direct") {
         return Response.redirect(offerCfg.url, 302);
       }
-
-      // Dating — s2 = accId
       if (offerCfg.type === "dating") {
         return Response.redirect(offerCfg.url + accId, 302);
       }
 
-      // Beauty — s2 = accId + suffix
       const s2 = offerCfg.suffix ? accId + offerCfg.suffix : accId;
       return Response.redirect(offerCfg.url + s2, 302);
     }
 
-    // ── Всё остальное (краулеры, боты, визиты /) → статика ──────────────
+    // ── Статика ──────────────────────────────────────────
     return env.ASSETS.fetch(request);
   },
 };
