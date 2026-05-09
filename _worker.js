@@ -83,8 +83,8 @@ const DOMAIN_OFFERS = {
     defaultAcc: "acc3",
   },
   "ai-girls-v2.pages.dev": {
-    left:  { url: JERKMATE,  suffix: "", type: "direct" },
-    right: { url: COURSE_EN, suffix: "", type: "course" },
+    left:  { url: COURSE_EN, suffix: "", type: "course" },
+    right: { url: JERKMATE,  suffix: "", type: "direct" },
     defaultAcc: "acc4",
   },
   "ai-girls-v3.pages.dev": {
