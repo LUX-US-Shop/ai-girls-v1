@@ -21,7 +21,7 @@ const OFFERS = {
 
 const SEXYFANS   = "https://t.crdtg2.com/403634/7412?bo=2753,2754,2755,2756&source=Pinterest3&aff_sub5=SF_006OG000004lmDN";
 const JERKMATE  = "https://t.ajrkmx1.com/403634/8780/0?bo=2779,2778,2777,2776,2775&po=6533&aff_sub5=SF_006OG000004lmDN";
-const COURSE_EN  = "https://ai.lux-us-shop.store/";
+const COURSE_EN  = "https://lux-us-shop.github.io/ai-model-Lab/";
 
 const DOMAIN_OFFERS = {
 
