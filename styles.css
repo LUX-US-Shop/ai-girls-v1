@@ -58,19 +58,6 @@ a {
   min-height: 100vh;
 }
 
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.045;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.045) 0 0.7px, transparent 0.9px),
-    radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.03) 0 0.6px, transparent 0.85px),
-    radial-gradient(circle at 35% 75%, rgba(255, 255, 255, 0.025) 0 0.8px, transparent 1px);
-  background-size: 190px 190px, 230px 230px, 170px 170px;
-}
-
 .ambient-glow {
   position: fixed;
   border-radius: 999px;
@@ -599,6 +586,66 @@ a {
   max-width: 28rem;
 }
 
+.section--video-outro {
+  margin-top: -54px;
+  padding-top: 12px;
+  padding-bottom: 124px;
+  background:
+    linear-gradient(180deg, rgba(8, 8, 12, 0.08) 0%, rgba(8, 8, 12, 0.74) 18%, rgba(8, 8, 12, 0.96) 100%),
+    url("assets/reference-bg.jpg") center 82% / cover no-repeat;
+}
+
+.video-outro {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 26px;
+  align-items: end;
+}
+
+.video-outro__copy {
+  max-width: 22rem;
+}
+
+.video-outro__copy h2 {
+  margin: 14px 0 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(2.7rem, 4.8vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.video-outro__frame {
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    linear-gradient(145deg, rgba(122, 77, 242, 0.12), transparent 54%, rgba(212, 84, 146, 0.08));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.video-outro__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 8, 12, 0.06) 0%, rgba(8, 8, 12, 0.18) 40%, rgba(8, 8, 12, 0.34) 100%);
+  pointer-events: none;
+}
+
+.video-outro__media {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
 .mobile-sticky {
   position: fixed;
   left: 16px;
@@ -687,7 +734,8 @@ a {
   .hero-layout,
   .inside-grid,
   .tier-grid,
-  .cta-panel {
+  .cta-panel,
+  .video-outro {
     grid-template-columns: 1fr;
   }
 
@@ -851,6 +899,26 @@ a {
     margin-top: -56px;
     padding-top: 46px;
     background-position: center 70%;
+  }
+
+  .section--video-outro {
+    margin-top: -28px;
+    padding-top: 10px;
+    padding-bottom: 104px;
+    background-position: center 76%;
+  }
+
+  .video-outro {
+    gap: 18px;
+  }
+
+  .video-outro__frame {
+    min-height: 420px;
+    border-radius: 26px;
+  }
+
+  .video-outro__copy h2 {
+    font-size: clamp(2.5rem, 11vw, 3.8rem);
   }
 }
 
