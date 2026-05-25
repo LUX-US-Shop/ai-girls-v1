@@ -1,156 +1,192 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MuseChat Atelier - AI character chat and creator path</title>
-  <meta name="description" content="Open an AI character chat experience, then choose the creator path if you want the workflow behind the visuals.">
-  <meta property="og:title" content="MuseChat Atelier - AI character chat and creator path">
-  <meta property="og:description" content="Open an AI character chat experience, then choose the creator path if you want the workflow behind the visuals.">
-  <meta property="og:site_name" content="MuseChat Atelier">
-  <meta property="og:image" content="https://ai-girls-v1.pages.dev/assets/ai-muse-hero-selected-v1.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:type" content="product">
-  <meta property="og:url" content="https://ai-girls-v1.pages.dev/">
-  <meta property="product:price:amount" content="0.00">
-  <meta property="product:price:currency" content="USD">
-  <meta property="og:availability" content="instock">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MuseChat Atelier - AI character chat and creator path">
-  <meta name="twitter:description" content="Open an AI character chat experience, then choose the creator path if you want the workflow behind the visuals.">
-  <meta name="twitter:image" content="https://ai-girls-v1.pages.dev/assets/ai-muse-hero-selected-v1.jpg">
-  <link rel="canonical" href="https://ai-girls-v1.pages.dev/">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0d0e11">
-  <style>
-    :root {
-      --ink: #f7f2e8;
-      --muted: rgba(247,242,232,.72);
-      --line: rgba(247,242,232,.18);
-      --panel: rgba(17, 18, 21, .68);
-      --accent: #f4d06f;
-      --accent-2: #8bd3dd;
-      --bg: #0d0e11;
-      --ease-out: cubic-bezier(.23,1,.32,1);
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; overflow-x: hidden; background: var(--bg); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; }
-    a { color: inherit; text-decoration: none; }
-    .page { min-height: 100svh; position: relative; overflow: hidden; isolation: isolate; width: 100%; }
-    .shell, main, .hero, .choice, .lead, .proof, .main-actions, .route { min-width: 0; max-width: 100%; }
-    .backdrop { position: fixed; inset: 0; z-index: -3; background: #0d0e11; }
-    .backdrop video, .backdrop img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.92) saturate(1.02); transform: scale(1.01); object-position: center; }
-    .shade { position: fixed; inset: 0; z-index: -2; background: linear-gradient(90deg, rgba(7,8,10,.94) 0%, rgba(7,8,10,.66) 44%, rgba(7,8,10,.30) 100%), linear-gradient(180deg, rgba(7,8,10,.08), rgba(7,8,10,.78)); }
-    .grain { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"); }
-    .shell { width: min(1180px, calc(100% - 32px)); min-height: 100svh; margin: 0 auto; display: grid; grid-template-rows: auto 1fr auto; gap: 20px; padding: 20px 0 18px; }
-    header, footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 760; text-transform: uppercase; color: rgba(247,242,232,.9); }
-    .mark { width: 28px; height: 28px; border: 1px solid var(--line); background: rgba(247,242,232,.08); display: grid; place-items: center; border-radius: 8px; }
-    .pill { border: 1px solid var(--line); background: rgba(247,242,232,.08); color: var(--muted); padding: 8px 12px; border-radius: 999px; font-size: 13px; line-height: 1; }
-    main { display: grid; grid-template-columns: minmax(0, .98fr) minmax(360px, .78fr); gap: 28px; align-items: center; }
-    .hero { max-width: 680px; padding: 28px 0 16px; }
-    .kicker { display: inline-flex; align-items: center; gap: 8px; color: rgba(247,242,232,.78); font-size: 13px; font-weight: 680; text-transform: uppercase; margin-bottom: 18px; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 22px var(--accent); }
-    h1 { font-size: clamp(40px, 5.7vw, 68px); line-height: .98; margin: 0; max-width: 720px; font-weight: 820; letter-spacing: 0; text-wrap: balance; }
-    .lead { max-width: 610px; margin: 18px 0 0; color: var(--muted); font-size: clamp(17px, 1.8vw, 20px); line-height: 1.5; }
-    .proof { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-    .proof span { border: 1px solid var(--line); background: rgba(247,242,232,.07); padding: 9px 11px; border-radius: 8px; color: rgba(247,242,232,.8); font-size: 13px; }
-    .choice { align-self: end; margin-bottom: 54px; border: 1px solid var(--line); background: var(--panel); backdrop-filter: blur(22px); border-radius: 8px; box-shadow: 0 24px 80px rgba(0,0,0,.34); overflow: hidden; }
-    .choice-head { padding: 18px 18px 0; }
-    .choice-head h2 { margin: 0; font-size: 18px; line-height: 1.2; }
-    .choice-head p { margin: 7px 0 0; color: var(--muted); line-height: 1.45; font-size: 14px; }
-    .routes { display: grid; gap: 10px; padding: 14px 18px 18px; }
-    .route { position: relative; display: grid; grid-template-columns: 72px 1fr auto; min-height: 104px; align-items: stretch; gap: 14px; padding: 12px; border-radius: 8px; border: 1px solid rgba(247,242,232,.14); background: rgba(255,255,255,.055); overflow: hidden; transition: transform 180ms var(--ease-out), border-color 180ms ease, background 180ms ease; }
-    .route:hover { transform: translateY(-2px); border-color: rgba(247,242,232,.32); background: rgba(255,255,255,.085); }
-    .route:active { transform: scale(.99); }
-    .thumb { width: 72px; height: 88px; align-self: center; border-radius: 8px; overflow: hidden; background: #17181c; border: 1px solid rgba(247,242,232,.14); }
-    .thumb video, .thumb img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.96) saturate(1); display: block; }
-    .route h3 { margin: 5px 0 6px; font-size: 18px; line-height: 1.15; }
-    .route p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
-    .tag { display: inline-flex; width: fit-content; color: #111318; background: var(--accent); padding: 4px 7px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
-    .arrow { align-self: center; width: 38px; height: 38px; border-radius: 999px; display: grid; place-items: center; border: 1px solid rgba(247,242,232,.18); background: rgba(247,242,232,.08); font-size: 20px; }
-    .main-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    .button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 18px; border-radius: 8px; font-weight: 780; border: 1px solid rgba(247,242,232,.18); transition: transform 170ms var(--ease-out), background 170ms ease, border-color 170ms ease; }
-    .button.primary { background: var(--ink); color: #101114; border-color: var(--ink); }
-    .button.secondary { background: rgba(247,242,232,.08); color: var(--ink); }
-    .button:hover { transform: translateY(-1px); }
-    .button:active { transform: scale(.98); }
-    .button:focus-visible, .route:focus-visible, footer a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-    footer { color: rgba(247,242,232,.58); font-size: 12px; }
-    .choice-foot { border-top: 1px solid rgba(247,242,232,.12); padding: 0 18px 18px; color: rgba(247,242,232,.62); font-size: 12px; line-height: 1.4; }
-    footer nav { display: flex; gap: 12px; }
-    @media (max-width: 860px) {
-      .shell { width: min(calc(100vw - 24px), 360px); max-width: 360px; gap: 16px; padding: 16px 0; overflow: hidden; }
-      header { align-items: flex-start; }
-      .pill { display: none; }
-      main { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 14px; width: 100%; max-width: 100%; overflow: hidden; }
-      .hero { padding: 16px 0 4px; width: 100%; max-width: 100%; overflow: hidden; }
-      h1 { font-size: clamp(34px, 10vw, 42px); line-height: 1.04; max-width: 100%; text-wrap: balance; }
-      .lead { font-size: 15px; line-height: 1.45; margin-top: 14px; max-width: 100%; overflow-wrap: break-word; }
-      .proof { margin-top: 16px; gap: 8px; width: 100%; max-width: 100%; overflow: hidden; }
-      .route { grid-template-columns: 58px minmax(0, 1fr); min-height: 104px; gap: 12px; max-width: 100%; }
-      .thumb { width: 58px; height: 78px; }
-      .arrow { display: none; }
-      .choice { margin-bottom: 0; width: 100%; max-width: 100%; overflow: hidden; }
-      .main-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; width: 100%; max-width: 100%; overflow: hidden; }
-      .button { min-height: 48px; padding: 0 12px; font-size: 14px; white-space: normal; text-align: center; width: 100%; min-width: 0; }
-      .proof span { font-size: 12px; padding: 8px 9px; max-width: 100%; overflow-wrap: break-word; }
-      .choice-head { padding: 16px 16px 0; max-width: 100%; overflow: hidden; }
-      .routes { padding: 14px 16px 16px; }
-      .route h3 { font-size: 16px; overflow-wrap: break-word; }
-      .route p { font-size: 12px; overflow-wrap: break-word; }
-      .choice-foot { padding: 0 16px 16px; }
-      footer { align-items: flex-start; flex-direction: column; }
-    }
-  @media (max-width: 380px) { h1 { font-size: 32px; } }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Luna Rose - Private Telegram Access</title>
+  <meta name="description" content="Private drops, premium access, and direct Telegram entry. Enter the private side of Luna Rose.">
+  <meta name="theme-color" content="#07070b">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Luna Rose - Private Telegram Access">
+  <meta property="og:description" content="Private drops, premium access, and direct Telegram entry.">
+  <meta property="og:image" content="assets/hero-poster.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="page">
-    <div class="backdrop" aria-hidden="true"><img src="assets/ai-muse-hero-selected-v1.jpg" alt="MuseChat Atelier" loading="eager"></div>
-    <div class="shade" aria-hidden="true"></div>
-    <div class="grain" aria-hidden="true"></div>
-    <div class="shell">
-      <header>
-        <a class="brand" href="/" aria-label="MuseChat Atelier home"><span class="mark">AI</span><span>MuseChat Atelier</span></a>
-        <span class="pill">Interactive character route</span>
-      </header>
-      <main>
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="kicker"><span class="dot"></span>Private AI character room</div>
-          <h1 id="hero-title">Start the AI muse chat. Keep the creator playbook close.</h1>
-          <p class="lead">This page is tuned for visitors who want the character experience first, with a separate path for people curious about the production workflow.</p>
-          <div class="proof" aria-label="Highlights"><span>AI character chat</span><span>Creator prompts</span><span>Posting workflow</span><span>Monetization map</span></div>
-          <div class="main-actions">
-            <a class="button primary" href="/go?offer=left&acc=acc3">Start AI chat</a>
-            <a class="button secondary" href="/go?offer=right&acc=acc3">Learn the system</a>
+  <div class="page-shell">
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--violet" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow--rose" aria-hidden="true"></div>
+
+    <header class="site-header" data-reveal="fade-down">
+      <nav class="site-nav">
+        <a class="brand" href="#top">Luna Rose</a>
+        <div class="nav-links nav-links--center">
+          <a href="#top">Entry</a>
+          <a href="#inside">Inside</a>
+          <a href="#tiers">Upgrade</a>
+        </div>
+        <div class="nav-links nav-links--meta">
+          <a href="#" data-telegram-key="channel" target="_blank" rel="noreferrer">Telegram</a>
+          <a href="#enter">Open</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-shell" id="top">
+        <div class="hero-backdrop" aria-hidden="true">
+          <img class="hero-backdrop__image" src="assets/reference-bg.jpg" alt="">
+          <div class="hero-backdrop__veil"></div>
+        </div>
+
+        <div class="hero-layout">
+          <div class="hero-copy" data-reveal="fade-up">
+            <p class="section-kicker">Private Entry / Editorial Dark</p>
+            <h1>Enter the private channel free. Stay for the late-night side.</h1>
+            <p class="hero-body">
+              A colder, sharper entry built for fast pull: free Telegram access first, the first drop immediately after, and the deeper lane only once the private mood already lands.
+            </p>
+            <div class="hero-tags">
+              <span>Free channel entry</span>
+              <span>First private drop</span>
+              <span>After-dark feed</span>
+            </div>
+            <div class="hero-actions">
+              <a class="button button--primary" data-cta="hero_primary" data-telegram-key="channel" href="#" target="_blank" rel="noreferrer"><span class="live-dot" aria-hidden="true"></span>Enter Private Channel</a>
+              <a class="button button--ghost" data-cta="hero_secondary" data-telegram-key="first_drop" href="#" target="_blank" rel="noreferrer">See First Drop</a>
+            </div>
+            <div class="hero-meta">
+              <span>Telegram first</span>
+              <span>Free to enter</span>
+              <span>VIP opens later</span>
+            </div>
           </div>
-        </section>
-        <aside class="choice" aria-label="Choose path">
-          <div class="choice-head">
-            <h2>Choose the path you came for</h2>
-            <p>The chat path is first here. The creator path stays separate so the page does not mix intent.</p>
+
+          <div class="hero-stage" aria-hidden="true">
+            <div class="stage-card stage-card--main" data-reveal="fade-up" data-delay="40">
+              <img src="assets/girls/girl-hero.jpg" alt="">
+              <span class="stage-card__badge">After dark</span>
+            </div>
+            <div class="stage-card stage-card--video" data-reveal="fade-up" data-delay="120">
+              <video autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg">
+                <source src="assets/hero-video.mp4" type="video/mp4">
+              </video>
+              <span class="stage-card__badge">Free entry live</span>
+            </div>
+            <div class="stage-card stage-card--side" data-reveal="fade-up" data-delay="200">
+              <img src="assets/girls/girl-card3.jpg" alt="">
+              <span class="stage-card__badge">VIP glow</span>
+            </div>
+            <div class="stage-note stage-note--top" data-reveal="fade-up" data-delay="260">
+              <p class="stage-note__eyebrow">Why this works</p>
+              <p class="stage-note__copy">Clear first click, faster emotional payoff, and a deeper lane that shows up only after the entry already converts.</p>
+            </div>
+            <div class="stage-pill" data-reveal="fade-up" data-delay="320">
+              <span>Trained AI</span>
+              <span>Private feed</span>
+              <span>VIP later</span>
+            </div>
           </div>
-          <div class="routes">
-            <a class="route" href="/go?offer=left&acc=acc3">
-              <span class="thumb"><img src="assets/ai-muse-selected-v1.jpg" alt="Start the AI character chat" loading="eager"></span>
-              <span><span class="tag">AI Chat</span><h3>Start the AI character chat</h3><p>For visitors who want an AI model-style entertainment experience. 18+ affiliate destination may open.</p></span>
-              <span class="arrow">&rsaquo;</span>
-            </a>
-            <a class="route" href="/go?offer=right&acc=acc3">
-              <span class="thumb"><img src="assets/ai-course-selected-v1.jpg" alt="Learn the AI model system" loading="eager"></span>
-              <span><span class="tag">Course</span><h3>Learn the AI model system</h3><p>Prompts, visual workflow, posting rhythm, and monetization structure for creator-minded visitors.</p></span>
-              <span class="arrow">&rsaquo;</span>
-            </a>
+        </div>
+      </section>
+
+      <section class="section section--inside" id="inside">
+        <div class="container inside-grid">
+          <div class="inside-copy" data-reveal="fade-up">
+            <p class="section-kicker">Inside / Private Feed</p>
+            <h2>Make the second screen feel exclusive, colder, and more private than a basic channel.</h2>
+            <p class="section-body">
+              The second beat should answer the cold-traffic question fast: what opens first, what feels private, and why this channel is worth entering now instead of later.
+            </p>
+            <div class="story-links">
+              <a class="text-link" data-cta="inside_channel" data-telegram-key="channel" href="#" target="_blank" rel="noreferrer">Enter free channel</a>
+              <a class="text-link" data-cta="inside_drop" data-telegram-key="first_drop" href="#" target="_blank" rel="noreferrer">Unlock first drop</a>
+            </div>
           </div>
-        </aside>
-      </main>
-      <footer>
-        <span>18+ where applicable. Independent AI entertainment and creator education. Some links are affiliate or partner links. Results depend on traffic, offer fit, and execution.</span>
-        <nav><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/contact">Contact</a></nav>
-      </footer>
+
+          <div class="inside-visual">
+            <article class="feed-panel feed-panel--large" data-reveal="fade-up" data-delay="60">
+              <img src="assets/girls/girl-card1.jpg" alt="">
+              <div class="feed-panel__overlay">
+                <span class="feed-panel__tag">Private replies</span>
+                <h3>Private replies start here</h3>
+              </div>
+            </article>
+            <article class="feed-panel feed-panel--medium" data-reveal="fade-up" data-delay="140">
+              <img src="assets/girls/girl-card2.jpg" alt="">
+              <div class="feed-panel__overlay">
+                <span class="feed-panel__tag">Open AI chat</span>
+                <h3>Trained AI chat, fast</h3>
+              </div>
+            </article>
+            <article class="feed-panel feed-panel--portrait" data-reveal="fade-up" data-delay="220">
+              <img src="assets/girls/girl-hero2.jpg" alt="">
+              <div class="feed-panel__overlay">
+                <span class="feed-panel__tag">Private heat</span>
+                <h3>Your first drop lands fast</h3>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tiers" id="tiers">
+        <div class="container">
+          <div class="section-head" data-reveal="fade-up">
+            <p class="section-kicker">Upgrade Path</p>
+            <h2>Keep the first click simple. Let the upgrade lane appear only after exclusivity already pulls them.</h2>
+          </div>
+
+          <div class="tier-grid">
+            <article class="tier-card tier-card--primary" data-reveal="fade-up" data-delay="40">
+              <p class="tier-card__index">01</p>
+              <h3>Free channel entry</h3>
+              <p>The first move should feel easy and immediate: enter the private Telegram channel and remove friction before the emotional payoff starts.</p>
+              <a class="text-link" data-cta="tier_channel" data-telegram-key="channel" href="#" target="_blank" rel="noreferrer">Enter private channel</a>
+            </article>
+
+            <article class="tier-card" data-reveal="fade-up" data-delay="120">
+              <p class="tier-card__index">02</p>
+              <h3>After-dark drop</h3>
+              <p>The first private drop should be the proof point. This is where curiosity turns into desire and the channel starts feeling worth staying inside.</p>
+              <a class="text-link" data-cta="tier_drop" data-telegram-key="first_drop" href="#" target="_blank" rel="noreferrer">See first drop</a>
+            </article>
+
+            <article class="tier-card" data-reveal="fade-up" data-delay="200">
+              <p class="tier-card__index">03</p>
+              <h3>VIP / premium packs</h3>
+              <p>Only after the free entry warms up should the deeper lane show up harder: VIP access, premium drops, and a stronger private upgrade path.</p>
+              <a class="text-link" data-cta="tier_vip" data-telegram-key="vip" href="#" target="_blank" rel="noreferrer">Get VIP access</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--cta" id="enter">
+        <div class="container cta-panel" data-reveal="fade-up">
+          <div>
+            <p class="section-kicker">Final Push</p>
+            <h2>Enter free first. Go deeper only once the private channel already has you.</h2>
+          </div>
+          <div class="cta-panel__actions">
+            <a class="button button--primary" data-cta="final_primary" data-telegram-key="channel" href="#" target="_blank" rel="noreferrer"><span class="live-dot" aria-hidden="true"></span>Enter Private Channel</a>
+            <a class="button button--ghost" data-cta="final_vip" data-telegram-key="vip" href="#" target="_blank" rel="noreferrer">Get VIP Access</a>
+            <p class="cta-note">Start with free channel entry. Let the first drop create the pull. Move deeper only after the private lane already feels worth it.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="mobile-sticky" id="mobile-sticky" aria-hidden="true">
+      <a class="button button--primary button--sticky" data-cta="sticky_primary" data-telegram-key="channel" href="#" target="_blank" rel="noreferrer"><span class="live-dot" aria-hidden="true"></span>Enter Private Channel</a>
     </div>
   </div>
+
+  <script src="landing-config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
